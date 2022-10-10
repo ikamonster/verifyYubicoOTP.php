@@ -1,6 +1,6 @@
 # verifyYubicoOTP.php
 
-YubiKey による Yubico OTP（ワンタイムパスワード）のPHP用検証関数です。  
+YubiKey による Yubico OTP（ワンタイムパスワード）のシンプルなPHP用検証関数です。  
 curlモジュール入り PHP8.1 で動作確認済み。
 
 ## 関数
@@ -21,24 +21,18 @@ verifyYubicoOTP($otp, $apiClientId, $apiSecretKey)
 
 ```PHP
 <?php
-define('YUBICLOUD_API_CLIENT_ID', '12345');
-define('YUBICLOUD_API_SECRET_KEY', 'FooBarBaz=');
 require_once('verifyYubicoOTP.php');
 
-$otp = $_POST['otp'];
-$id = verifyYubicoOTP($otp, YUBICLOUD_API_CLIENT_ID, YUBICLOUD_API_SECRET_KEY);
-if ($id !== false) {
-    echo 'success: Public ID = ' . $id;
-} else {
-    echo 'failed';
-}
+$otp = $_REQUEST['otp'];
+$id = verifyYubicoOTP($otp, '12345', 'FooBarBaz=');
+echo ($id !== false)? 'Public ID: ' . $id : 'failed';
 ```
 
 ## 説明
 
 Yubico OTP や YubiCloud の説明や利用法、そもそも YubiKey とは何かについては割愛します。この関数を欲する方には自明でしょう。
 
-同様のPHP用ライブラリーとして、Yubico公式開発サイトですでに「[Auth_Yubico PHP class](https://developers.yubico.com/php-yubico/)」が紹介されています。が、非推奨だったり導入が面倒そうだったりしたため自作してみました。
+同様のPHP用ライブラリーとして、Yubico公式開発サイトですでに「[Auth_Yubico PHP class](https://developers.yubico.com/php-yubico/)」が紹介されています。しかし、非推奨だったり導入が面倒そうだったりしたため自作してみました。
 
 こちらの関数は通信リトライしなかったり具体的なエラーコードを返さなかったりと短所はあるものの（必要に応じて改良してください）、気軽に使えると思います。わざわざファイルをインクルードせず、自分のコードにちょいとコピペしてもよいでしょう。
 
