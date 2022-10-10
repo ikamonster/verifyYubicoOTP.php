@@ -8,7 +8,7 @@ Yubico OTP v2 Verifier
 @return					YubiKey Public ID if validation is successful, false if not
 
 @version	1.0.0
-@author		M. Taniguchi
+@copyright	(c) 2022 M. Taniguchi
 @license	MIT License
 */
 function verifyYubicoOTP($otp, $apiClientId, $apiSecretKey) {
@@ -23,12 +23,12 @@ function verifyYubicoOTP($otp, $apiClientId, $apiSecretKey) {
 	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 	curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 	$params = curl_exec($ch);
-	if (!$params) return false;	// Returns false if communication fails
-	$params = explode("\n", $params);
 	curl_close($ch);
+	if (!$params) return false;	// Returns false if communication fails
 
 	// Make the returned information into an associative array
 	$data = array();
+	$params = explode("\n", $params);
 	forEach($params as $param) {
 		if (!$param) continue;
 		if (($p = strpos($param, '=')) === false) continue;
