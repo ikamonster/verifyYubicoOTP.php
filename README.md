@@ -4,17 +4,19 @@ YubiKey による Yubico OTP（ワンタイムパスワード）のシンプル�
 
 ## 関数
 
-verifyYubicoOTP($otp, $apiClientId, $apiSecretKey)
+```PHP
+function verifyYubicoOTP(string $otp, string $apiClientId, string $apiSecretKey) : ?string
+```
 
 ### 引数
-+ $otp … YubiKey にタッチすると出力されるワンタイムパスワード
-+ $apiClientId … YubiCloud API に利用登録すると得られるクライアントID
-+ $apiSecretKey … YubiCloud API に利用登録すると得られるシークレットキー
++ string $otp … YubiKey にタッチすると出力されるワンタイムパスワード
++ string $apiClientId … YubiCloud API に利用登録すると得られるクライアントID
++ string $apiSecretKey … YubiCloud API に利用登録すると得られるシークレットキー
 
 ### 返値
 
-+ String … 検証に成功した Yubico OTP Public ID
-+ false … 検証失敗
++ string … 検証に成功した Yubico OTP Public ID
++ null … 検証失敗
 
 ## 使用例
 
@@ -24,7 +26,7 @@ require_once('verifyYubicoOTP.php');
 
 $otp = $_REQUEST['otp'];
 $id = verifyYubicoOTP($otp, '12345', 'FooBarBaz=');
-echo ($id !== false)? 'Public ID: ' . $id : 'failed';
+echo ($id)? 'Public ID: ' . $id : 'failed';
 ```
 
 ## 説明
