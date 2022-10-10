@@ -7,11 +7,11 @@ Yubico OTP v2 Verifier
 @param	$apiSecretKey	Yubico API Secret Key
 @return					YubiKey Public ID if validation is successful, false if not
 
-@version	1.0.0
+@version	1.0.1
 @copyright	(c) 2022 M. Taniguchi
 @license	MIT License
 */
-function verifyYubicoOTP($otp, $apiClientId, $apiSecretKey) {
+function verifyYubicoOTP(string $otp, string $apiClientId, string $apiSecretKey) : ?string {
 	// Generate API call URL
 	$nonce = md5(rand(0, 0x7fffffff));
 	$server = (int)rand(1, 5);	// Randomly select a YubiCloud server (api*.yubico.com)
@@ -24,7 +24,7 @@ function verifyYubicoOTP($otp, $apiClientId, $apiSecretKey) {
 	curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 	$params = curl_exec($ch);
 	curl_close($ch);
-	if (!$params) return false;	// Returns false if communication fails
+	if (!$params) return null;	// Returns null if communication fails
 
 	// Make the returned information into an associative array
 	$data = array();
@@ -38,9 +38,7 @@ function verifyYubicoOTP($otp, $apiClientId, $apiSecretKey) {
 
 	// Reconstruct information into GET parameter format and verify HMAC-SHA-1 signatures
 	$params = '';
-	$hash = null;
-	$id = null;
-	$status = null;
+	$hash = $id = $status = null;
 	forEach($data as $key => $val) {
 		switch ($key) {
 		case 'h':
@@ -65,6 +63,6 @@ function verifyYubicoOTP($otp, $apiClientId, $apiSecretKey) {
 	}
 	$hash = ($hash === base64_encode(hash_hmac('sha1', $params, base64_decode($apiSecretKey), true)));
 
-	// Returns Public ID of YubiKey on successful verification, false on failure
-	return ($hash && $nonce === true && $status === 'OK' && $id)? $id : false;
+	// Returns Public ID of YubiKey on successful verification, null on failure
+	return ($hash && $nonce === true && $status === 'OK' && $id)? $id : null;
 }
