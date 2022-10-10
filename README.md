@@ -29,7 +29,7 @@ echo ($id !== false)? 'Public ID: ' . $id : 'failed';
 
 ## 説明
 
-Yubico OTP や YubiCloud の説明や利用法、そもそも YubiKey とは何かについては割愛します。この関数を欲する方には自明でしょう。
+Yubico OTP や YubiCloud の説明や利用法、そもそも YubiKey とは何かについては割愛します。この関数を欲する方はご存じでしょう。
 
 同様のPHP用ライブラリーとして、Yubico公式開発サイトですでに「[Auth_Yubico PHP class](https://developers.yubico.com/php-yubico/)」が紹介されています。しかし、導入や使い方が面倒そうだったため仕組みの勉強を兼ねて自作してみました。
 
