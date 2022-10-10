@@ -19,17 +19,20 @@ verifyYubicoOTP($otp, $apiClientId, $apiSecretKey)
 
 ## 使用例
 
-    define('YUBICLOUD_API_CLIENT_ID', '12345');
-    define('YUBICLOUD_API_SECRET_KEY', 'FooBarBaz=');
-    require_once('verifyYubicoOTP.php');
-    
-    $otp = $_POST['otp'];
-    $id = verifyYubicoOTP($otp, YUBICLOUD_API_CLIENT_ID, YUBICLOUD_API_SECRET_KEY);
-    if ($id !== false) {
-      echo 'success: Public ID = ' . $id;
-    } else {
-      echo 'failed';
-    }
+```PHP
+<?php
+define('YUBICLOUD_API_CLIENT_ID', '12345');
+define('YUBICLOUD_API_SECRET_KEY', 'FooBarBaz=');
+require_once('verifyYubicoOTP.php');
+
+$otp = $_POST['otp'];
+$id = verifyYubicoOTP($otp, YUBICLOUD_API_CLIENT_ID, YUBICLOUD_API_SECRET_KEY);
+if ($id !== false) {
+    echo 'success: Public ID = ' . $id;
+} else {
+    echo 'failed';
+}
+```
 
 ## 説明
 
