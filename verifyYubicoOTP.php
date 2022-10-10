@@ -3,8 +3,8 @@
 Yubico OTP v2 Verifier
 
 @param	$otp			Yubico OTP
-@param	$apiClientId	Yubico API Client ID
-@param	$apiSecretKey	Yubico API Secret Key
+@param	$apiClientId	YubiCloud API Client ID
+@param	$apiSecretKey	YubiCloud API Secret Key
 @return					YubiKey Public ID if validation is successful, false if not
 
 @version	1.0.1
