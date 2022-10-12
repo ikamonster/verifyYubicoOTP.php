@@ -7,15 +7,14 @@ Yubico OTP v2 Verifier
 @param	$apiSecretKey	YubiCloud API Secret Key
 @return					YubiKey Public ID if validation is successful, false if not
 
-@version	1.0.1
+@version	1.0.2
 @copyright	(c) 2022 M. Taniguchi
 @license	MIT License
 */
 function verifyYubicoOTP(string $otp, string $apiClientId, string $apiSecretKey) : ?string {
 	// Generate API call URL
 	$nonce = md5(rand(0, 0x7fffffff));
-	$server = (int)rand(1, 5);	// Randomly select a YubiCloud server (api*.yubico.com)
-	$url = 'https://api' . (($server <= 1)? '' : $server) . '.yubico.com/wsapi/2.0/verify?id=' . urlencode($apiClientId) . '&otp=' . urlencode($otp) . '&nonce=' . urlencode($nonce);
+	$url = 'https://api.yubico.com/wsapi/2.0/verify?id=' . urlencode($apiClientId) . '&otp=' . urlencode($otp) . '&nonce=' . urlencode($nonce);
 
 	// Execute cURL
 	$ch = curl_init($url);
